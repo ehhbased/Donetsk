@@ -9,6 +9,7 @@ void entry_point()
 	printf("%i\n", xuid.m_id);
 
 	r_endframe.create(0x141966950_g, R_EndFrame_Detour);
+	KickClientNum.create(0x14136C160_g, SV_CmdsMP_KickClientNum);
 	utils::hook::jump(0x141297580_g, Cmd_Exec_Internal);
 	utils::hook::jump(0x1415E1340_g, CL_ScreenMP_DrawOverlay_Detour);
 	utils::hook::jump(0x1413FD3A0_g, username_Detour);

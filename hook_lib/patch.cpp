@@ -149,6 +149,15 @@ void hooks()
 	// db_checkxfileversion.create(0x1411A7840_g, DB_CheckXFileVersion_Detour);
 }
 
+void SV_CmdsMP_KickClientNum(int clientNum, const char* reason, bool kickedForInactivity)
+{
+	//stops spawned bots from getting kicked for team balancing
+	if (strcmp("EXE/PLAYERKICKED_BOT_BALANCE", reason) == 0)
+		return;
+
+	KickClientNum.stub<void>(clientNum, reason, kickedForInactivity);
+}
+
 void patchGame()
 {
 	hooks();
