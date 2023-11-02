@@ -1,3 +1,4 @@
+#include "addr_utils.hpp"
 #include "patch.h"
 #include "game_inc.h"
 
@@ -6,7 +7,6 @@ bool bFinished;
 bool btoggle;
 
 dvar_t* cl_textChatEnabled = reinterpret_cast<dvar_t*>(0x14EEB0738_g);
-dvar_t* com_timescale = reinterpret_cast<dvar_t*>(0x14D3865E8_g);
 
 uintptr_t xuid_generated;
 int collision_ticker;
@@ -95,6 +95,11 @@ int LiveStorage_GetActiveStatsSource_Detour()
 	return 1;
 }
 
+bool ProfanityFilter_IsBadWord_Detour()
+{
+	return false;
+}
+
 void hooks()
 {
 	process_script_file.create(0x141322350_g, ProcessScriptFile);
@@ -137,6 +142,7 @@ void hooks()
 	seh_stringed_getstring.create(0x1413CC2A0_g, SEH_StringEd_GetString_Detour);
 
 	cl_createdevgui.create(0x1415B2080_g, CL_CreateDevGui_Detour);
+	cg_mainmp_init.create(0x141792E60_g, CG_MainMP_Init_Detour);
 	partyhost_startprivateparty.create(0x14119F0D0_g, PartyHost_StartPrivateParty_Detour);
 
 	PM_WeaponUseAmmo.create(0x141155AF0_g, PM_WeaponUseAmmo_Detour);
@@ -144,6 +150,8 @@ void hooks()
 	com_gamemode_supportsfeature.create(0x1410C8980_g, Com_GameMode_SupportsFeature_Detour);
 
 	lui_cod_luacall_enginenotifyserver_detour_impl.create(0x1419F7160_g, LUI_CoD_LuaCall_EngineNotifyServer_Detour);
+
+	utils::hook::jump(0x141609140_g, ProfanityFilter_IsBadWord_Detour);
 
 	// remove FF Header version check
 	// db_checkxfileversion.create(0x1411A7840_g, DB_CheckXFileVersion_Detour);
@@ -197,9 +205,6 @@ void patchGame()
 	utils::hook::nop(0x14165E660_g, 5);
 	utils::hook::nop(0x141665289_g, 5);
 	utils::hook::nop(0x14166567D_g, 5);
-
-	// set com_timescale dvar to read only
-	utils::hook::set<unsigned int>(0x1412B26CF_g, 8192);
 
 	// remove FF Header version check
 	// utils::hook::set<byte>(0x1411A776B_g, 0xEB);

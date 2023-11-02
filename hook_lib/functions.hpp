@@ -5,11 +5,6 @@ struct gentity_s;
 
 struct CmdArgs;
 
-struct Addresses {
-	uintptr_t ModuleBase;
-	uintptr_t jmp_rbx;
-};
-
 union DvarValue
 {
 	bool enabled;
@@ -132,6 +127,8 @@ extern cmd_function_s MapRestart_f_VAR;
 extern cmd_function_s omnvar_set_f_VAR;
 extern cmd_function_s omnvar_dump_f_VAR;
 extern cmd_function_s unlockall_f_VAR;
+extern cmd_function_s dump_weapdefs_f_VAR;
+extern cmd_function_s load_weapdef_f_VAR;
 extern CmdArgs* cmd_args;
 
 void* RtlAddVectoredExceptionHandler(LONG First, PVECTORED_EXCEPTION_HANDLER Handler);
@@ -256,5 +253,3 @@ int G_Main_GetTime();
 const char* _va(const char* format, ...);
 
 #pragma endregion
-
-extern Addresses g_Addrs;

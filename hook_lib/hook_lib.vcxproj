@@ -82,6 +82,7 @@
     <LinkIncremental>true</LinkIncremental>
     <TargetName>discord_game_sdk</TargetName>
     <LibraryPath>$(SolutionDir)\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\hook_lib;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -149,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="addr_utils.cpp" />
     <ClCompile Include="cmd.cpp" />
     <ClCompile Include="common\exception\minidump.cpp" />
     <ClCompile Include="common\utils\binary_resource.cpp" />
@@ -176,11 +178,11 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="net_chan.cpp" />
     <ClCompile Include="omnvars.cpp" />
+    <ClCompile Include="mp_init.cpp" />
     <ClCompile Include="party.cpp" />
     <ClCompile Include="patch.cpp" />
     <ClCompile Include="screen.cpp" />
     <ClCompile Include="script.cpp" />
-    <ClCompile Include="splashscreen.cpp" />
     <ClCompile Include="stringed.cpp" />
     <ClCompile Include="structs.cpp" />
     <ClCompile Include="sv_main.cpp" />
@@ -189,6 +191,7 @@
     <ClCompile Include="zones.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="addr_utils.hpp" />
     <ClInclude Include="assets.h" />
     <ClInclude Include="cmd.h" />
     <ClInclude Include="common\exception\minidump.hpp" />
@@ -222,6 +225,7 @@
     <ClInclude Include="MinHook.hpp" />
     <ClInclude Include="net_chan.h" />
     <ClInclude Include="omnvars.h" />
+    <ClInclude Include="mp_init.h" />
     <ClInclude Include="party.h" />
     <ClInclude Include="patch.h" />
     <ClInclude Include="screen.h" />
