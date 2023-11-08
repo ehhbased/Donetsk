@@ -159,8 +159,7 @@ void hooks()
 
 void SV_CmdsMP_KickClientNum(int clientNum, const char* reason, bool kickedForInactivity)
 {
-	//stops spawned bots from getting kicked for team balancing
-	if (strcmp("EXE/PLAYERKICKED_BOT_BALANCE", reason) == 0)
+	if (strlen(reason) && strcmp("EXE/PLAYERKICKED_BOT_BALANCE", reason) == 0)
 		return;
 
 	KickClientNum.stub<void>(clientNum, reason, kickedForInactivity);
