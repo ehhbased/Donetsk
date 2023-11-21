@@ -1,5 +1,6 @@
 #include "Main.hpp"
 #include "game_inc.h"
+#include "debug_output.h"
 
 #include "addr_utils.hpp"
 
@@ -55,7 +56,10 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD Reason, LPVOID lpVoid)
 
 		printf("Base Address: %p\n", 0_b);
 
-		addCustomDvars();
+		// prevents tact error E_REPAIR (28) from happening
+		remove("Data/data/CASCRepair.mrk");
+
+		debug_output_init(nullptr);
 		addCustomCmds();
 		patchGame();
 
